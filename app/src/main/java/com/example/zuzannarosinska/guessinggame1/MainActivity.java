@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 message = guess + " is correct. You win! Let's play the game again!";
                 SharedPreferences preferences =
                         PreferenceManager.getDefaultSharedPreferences(this);
-                int gameWon = preferences.getInt("gamesWon", 0)+1;
+                int gamesWon = preferences.getInt("gamesWon", 0)+1;
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putInt("gamesWon", gamesWon);
                 editor.apply();
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences preferences =
                         PreferenceManager.getDefaultSharedPreferences(this);
                 int gamesWon = preferences.getInt("gamesWon", 0);
-                AlertDialog statDialog = new AlertDialog(MainActivity.this).create();
+                AlertDialog statDialog = new AlertDialog.Builder(MainActivity.this).create();
                 statDialog.setTitle("Guessing Game stats");
                 statDialog.setMessage("You have won " + gamesWon + " games. Way to go!");
                 statDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
