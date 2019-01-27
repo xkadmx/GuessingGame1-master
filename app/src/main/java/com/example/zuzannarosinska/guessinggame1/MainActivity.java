@@ -1,7 +1,9 @@
 package com.example.zuzannarosinska.guessinggame1;
 
+import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -36,7 +38,13 @@ public class MainActivity extends AppCompatActivity {
             else if (guess > theNumber)
                 message = guess + " is too high. Try again.";
             else {
-                message = guess + " is correct. You win! Let's play the game!";
+                message = guess + " is correct. You win! Let's play the game again!";
+                SharedPreferences preferences =
+                        PreferenceManager.getDefaultSharedPreferences(this);
+                int gameWon = preferences.getInt("gamesWon", 0)+1;
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("gamesWon", gamesWon);
+                editor.apply();
                 newGame();
             }
         } catch (Exception e) {
@@ -64,9 +72,12 @@ public class MainActivity extends AppCompatActivity {
         btnGuess = (Button) findViewById(R.id.btnGuess);
         lblOutput = (TextView) findViewById(R.id.lblOutput);
         lblRange = (TextView) findViewById(R.id.textView2);
-
-
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        range = preferences.getInt("range", 100);
         newGame();
+
+
         btnGuess.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 checkGuess();
@@ -101,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP) @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
@@ -113,14 +124,17 @@ public class MainActivity extends AppCompatActivity {
                         switch (item) {
                             case 0:
                                 range = 10;
+                                storeRange(10);
                                 newGame();
                                 break;
                             case 1:
                                 range = 100;
+                                storeRange(100);
                                 newGame();
                                 break;
                             case 2:
                                 range = 1000;
+                                storeRange(1000);
                                 newGame();
                                 break;
                         }
@@ -136,6 +150,20 @@ public class MainActivity extends AppCompatActivity {
                 newGame();
                 return true;
             case R.id.action_gamestats:
+                SharedPreferences preferences =
+                        PreferenceManager.getDefaultSharedPreferences(this);
+                int gamesWon = preferences.getInt("gamesWon", 0);
+                AlertDialog statDialog = new AlertDialog(MainActivity.this).create();
+                statDialog.setTitle("Guessing Game stats");
+                statDialog.setMessage("You have won " + gamesWon + " games. Way to go!");
+                statDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int which){
+                                dialog.dismiss();
+                            }
+
+                });
+                statDialog.show();
                 return true;
             case R.id.action_about:
                 AlertDialog aboutDialog = new AlertDialog.Builder(MainActivity.this).create();
