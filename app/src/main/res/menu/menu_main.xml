@@ -4,22 +4,22 @@
     tools:context="com.example.zuzannarosinska.guessinggame1.MainActivity">
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="1"
         android:title="@string/action_settings"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_newgame"
-        android:orderInCategory="150"
+        android:orderInCategory="2"
         android:title="@string/action_newgame"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_gamestats"
-        android:orderInCategory="200"
+        android:orderInCategory="3"
         android:title="@string/action_gamestats"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_about"
-        android:orderInCategory="250"
+        android:orderInCategory="4"
         android:title="@string/action_about"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 </menu>
