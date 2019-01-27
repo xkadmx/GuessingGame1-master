@@ -1,7 +1,9 @@
 package com.example.zuzannarosinska.guessinggame1;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private int range = 100;
     private TextView lblRange;
 
-    public void checkGuess(){
+    public void checkGuess() {
         String guessText = txtGuess.getText().toString();
         String message = "";
         try {
@@ -37,21 +39,23 @@ public class MainActivity extends AppCompatActivity {
                 message = guess + " is correct. You win! Let's play the game!";
                 newGame();
             }
-        }catch (Exception e) {
-            message = "Enter a WHOLE NUMBER between 1 and " + range +".";
-        }finally {
+        } catch (Exception e) {
+            message = "Enter a WHOLE NUMBER between 1 and " + range + ".";
+        } finally {
             lblOutput.setText(message);
             txtGuess.requestFocus();
             txtGuess.selectAll();
-            }
+        }
     }
-        public void newGame(){
-        theNumber=(int)(Math.random()*100+1);
-        lblRange.setText("Enter a number between 1 and " + range +".");
-        txtGuess.setText("" + range/2);
+
+    public void newGame() {
+        theNumber = (int) (Math.random() * 100 + 1);
+        lblRange.setText("Enter a number between 1 and " + range + ".");
+        txtGuess.setText("" + range / 2);
         txtGuess.requestFocus();
         txtGuess.selectAll();
-        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,14 +103,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_settings:
                 final CharSequence[] items = {"1 to 10", "1 to 100", "1 to 1000"};
-                AlertDialog.Builder builder= new AlertDialog.Builder(this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Select the Range:");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override public void onClick(DialogInterface dialog, int item) {
-                        switch(item){
+                        switch (item) {
                             case 0:
                                 range = 10;
                                 newGame();
@@ -147,8 +151,14 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+            }
+    }
 
-        }
+    public void storeRange(int newRange) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("range", newRange);
+        editor.apply();
     }
 
 }
