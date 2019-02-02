@@ -68,10 +68,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        txtGuess = (EditText) findViewById(R.id.txtGuess);
-        btnGuess = (Button) findViewById(R.id.btnGuess);
-        lblOutput = (TextView) findViewById(R.id.lblOutput);
-        lblRange = (TextView) findViewById(R.id.textView2);
+        txtGuess = findViewById(R.id.txtGuess);
+        btnGuess = findViewById(R.id.btnGuess);
+        lblOutput = findViewById(R.id.lblOutput);
+        lblRange = findViewById(R.id.textView2);
         SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
         range = preferences.getInt("range", 100);
@@ -90,10 +90,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
-        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 

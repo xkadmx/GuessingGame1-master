@@ -1,37 +1,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.zuzannarosinska.guessinggame1.MainActivity">
+    tools:context="com.brysonpayne.guessinggame.MainActivity">
     <item
         android:id="@+id/action_settings"
-        android:checkable="false"
-        android:enabled="true"
-        android:orderInCategory="0"
-        android:title="@string/action_settings"
-        android:visible="true"
-        app:showAsAction="never" />
+        android:title="@string/settings" />
     <item
         android:id="@+id/action_newgame"
-        android:checkable="false"
-        android:enabled="true"
-        android:orderInCategory="1"
-        android:title="@string/action_newgame"
-        android:visible="true"
-        app:showAsAction="never" />
+        android:title="@string/new_game" />
     <item
         android:id="@+id/action_gamestats"
-        android:checkable="false"
-        android:enabled="true"
-        android:orderInCategory="2"
-        android:title="@string/action_gamestats"
-        android:visible="true"
-        app:showAsAction="never" />
+        android:title="@string/game_stats" />
     <item
         android:id="@+id/action_about"
-        android:checkable="false"
-        android:enabled="true"
-        android:orderInCategory="3"
-        android:title="@string/action_about"
-        android:visible="true"
-        app:showAsAction="never" />
+        android:title="@string/about" />
 </menu>
