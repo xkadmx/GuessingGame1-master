@@ -19,11 +19,13 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private EditText txtGuess;
     private Button btnGuess;
     private TextView lblOutput;
+
     private int theNumber;
     private int range = 100;
     private TextView lblRange;
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
                 message = guess + " is too high. Try again.";
             else {
                 message = guess + " is correct. You win! Let's play the game again!";
+                Toast.makeText(MainActivity.this, message,
+                        Toast.LENGTH_LONG).show();
                 SharedPreferences preferences =
                         PreferenceManager.getDefaultSharedPreferences(this);
                 int gamesWon = preferences.getInt("gamesWon", 0)+1;
@@ -47,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.apply();
                 newGame();
             }
+
         } catch (Exception e) {
             message = "Enter a WHOLE NUMBER between 1 and " + range + ".";
         } finally {
@@ -120,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 builder.setTitle("Select the Range:");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override public void onClick(DialogInterface dialog, int item) {
-                        switch (item) {
+                        switch (item){
                             case 0:
                                 range = 10;
                                 storeRange(10);
@@ -136,15 +141,16 @@ public class MainActivity extends AppCompatActivity {
                                 storeRange(1000);
                                 newGame();
                                 break;
+
                         }
                         dialog.dismiss();
 
                     }
                 });
+
                 AlertDialog alert = builder.create();
                 alert.show();
                 return true;
-
             case R.id.action_newgame:
                 newGame();
                 return true;
@@ -153,21 +159,20 @@ public class MainActivity extends AppCompatActivity {
                         PreferenceManager.getDefaultSharedPreferences(this);
                 int gamesWon = preferences.getInt("gamesWon", 0);
                 AlertDialog statDialog = new AlertDialog.Builder(MainActivity.this).create();
-                statDialog.setTitle("Guessing Game stats");
-                statDialog.setMessage("You have won " + gamesWon + " games. Way to go!");
+                statDialog.setTitle("Guessing Game Stats");
+                statDialog.setMessage("You won " + gamesWon+ " games. Way to go!");
                 statDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                        new DialogInterface.OnClickListener(){
-                            public void onClick(DialogInterface dialog, int which){
+                        new DialogInterface.OnClickListener() {
+                            @Override public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                             }
-
-                });
+                        });
                 statDialog.show();
                 return true;
             case R.id.action_about:
                 AlertDialog aboutDialog = new AlertDialog.Builder(MainActivity.this).create();
                 aboutDialog.setTitle("About Guessing Game");
-                aboutDialog.setMessage("©2019 xkadmx.");
+                aboutDialog.setMessage("©2019 xkadmx");
                 aboutDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                         new DialogInterface.OnClickListener() {
                             @Override public void onClick(DialogInterface dialog, int which) {
@@ -182,10 +187,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void storeRange(int newRange) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt("range", newRange);
-        editor.apply();
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+    SharedPreferences.Editor editor = preferences.edit();
+    editor.putInt("range", newRange);
+    editor.apply();
     }
 
 }
